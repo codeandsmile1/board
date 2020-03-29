@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {cardsRef} from '../firebase';
-import EditCardModal from './EditCardModel'
+import EditCardModal from './EditCardModel';
+import TextareaAutosize from 'react-autosize-textarea';
+
 
 class Card extends React.Component {
   state = { 
@@ -17,7 +19,7 @@ class Card extends React.Component {
          const cardId = this.props.data.id;
          await cardsRef.doc(cardId).delete();
        } catch(error)  { 
-         console.log("Error deleting card: ", error);
+         console.error("Error deleting card: ", error);
        }
    }
 
@@ -34,7 +36,10 @@ class Card extends React.Component {
 
                </div>
                <div className="card-body">
-               <p onClick={this.toggleModal}>{this.props.data.text}</p>
+               <TextareaAutosize 
+                 readOnly
+                 value={this.props.data.text}
+                 onClick={this.toggleModal}></TextareaAutosize>
                <span onClick={this.deleteCard}>&times;</span>
                </div>
            </div>
