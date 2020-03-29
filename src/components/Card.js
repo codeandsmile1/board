@@ -28,7 +28,7 @@ class Card extends React.Component {
                <div className="cards-labels">
                    {
                        this.props.data.labels.map(label => {
-                           return <span key={label} style={{background: label}} className="labels"></span>
+                           return <span key={label} style={{background: label}} className="label"></span>
                        })
                    }
 

@@ -75,6 +75,7 @@ class Board extends React.Component {
     const newTitle = e.currentTarget.value;
     const board = await boardsRef.doc(this.props.match.params.boardId);
     board.update({'board.title': newTitle});
+    
   } catch(error) {
     console.error("Error updating the board: ", error);
   }

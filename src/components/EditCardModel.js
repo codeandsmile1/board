@@ -37,7 +37,6 @@ class EditCardModal extends React.Component {
   }
 
   setLabel = (label) =>  { 
-    debugger;
     const labels = [...this.state.selectedLabels];
     if(labels.includes(label)) { 
       const newLabels = labels.filter((element) => {
@@ -56,7 +55,7 @@ class EditCardModal extends React.Component {
         <div className="modal-body">
           <form onSubmit={this.updateCard}>
             <div>
-              <span className="modal-close">&times;</span>
+              <span className="modal-close" onClick={this.props.toggleModal}>&times;</span>
               <p className="label-title">add / remove labels</p>
               {this.state.availableLabels.map(label => {
                 return (
@@ -70,7 +69,7 @@ class EditCardModal extends React.Component {
               <hr />
             </div>
             <div className="edit-area">
-              <span onClick={this.props.toggleModal} className="edit-icon">&#x270E;</span>
+              <span className="edit-icon">&#x270E;</span>
               <input className="textbox-edit"
                defaultValue={this.props.cardData.text}
                ref={this.textInput}></input>
