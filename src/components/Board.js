@@ -60,7 +60,7 @@ class Board extends React.Component {
      this.addBoardInput.current.value = '';
 
     } catch(error) {
-      console.log("Error creating a new list: ", error);
+      console.error("Error creating a new list: ", error);
     }
 
   }
