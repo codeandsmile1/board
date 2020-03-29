@@ -4,7 +4,9 @@ import Board from "./components/Board";
 import Home from "./components/pages/Home";
 import PageNotFound from "./components/pages/PageNotFound";
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
-import {boardsRef, listsRef, cardsRef} from './firebase'
+import {boardsRef} from './firebase';
+import {AuthProvider} from './components/AuthContext';
+import UserForm from './components/UserForm';
 
 class App extends React.Component {
   state = {
@@ -45,57 +47,19 @@ class App extends React.Component {
     }
   }
 
-  deleteList = async (listId) => {
-    try {
-       const cards = await cardsRef.where('card.listId','==', listId).get();
-       if(cards.docs.length !== 0) {
-          cards.forEach(card => {
-             card.ref.delete();
-          })
-       }
-       await listsRef.doc(listId).delete();
-
-    } catch(error) {
-      console.log("Error deleting list: ",error);
-    }
-  }
-
-  deleteBoard = async (boardId) => {
-    try { 
-      const board = await boardsRef.doc(boardId);
-      const lists = await listsRef.where('list.board', "==", boardId).get();
-            
-         if(listsRef.docs.length !== 0) {
-           lists.forEach(list => {
-             this.deleteList(list.ref.id)
-           })
-         }
-
-     this.setState({
-       boards: [...this.state.boards.filter(board => {
-         return board.id !== boardId
-       })]
-     });
-
-     board.delete();
-
-    } catch(error) {
-      console.log("Error deleting board: ", error);
-    }
-  }
-
   render() {
     return (
       <div>
          <BrowserRouter>
+         <AuthProvider>
          <Switch>
+           <Route exact path='/' component={UserForm}/>
          <Route exact path="/:userId/boards"
           render={(props) => (
             <Home 
             {...props}
             getBoard = {this.getBoard}
-            boards={this.state.boards} 
-            
+            boards={this.state.boards}         
             createNewBoard={this.createNewBoard}/>
           )
           }/>
@@ -103,13 +67,12 @@ class App extends React.Component {
          render = {(props) => (
            <Board 
            {...props}
-           deleteBoard = {this.deleteBoard}
-           deleteList = {this.deleteList}
            />
          )}
          />
          <Route component={PageNotFound}/>
          </Switch>
+         </AuthProvider>
          </BrowserRouter>
       </div>
     );

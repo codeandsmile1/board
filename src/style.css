@@ -288,7 +288,7 @@ textarea .textbox-edit:hover {
     border-radius: 5px;
     font-size: 1em;
     line-height:  1.5;
-    width: 4vw;
+    width: 20vw;
 }
 
 @media screen and (max-width: 680px) {

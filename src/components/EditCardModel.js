@@ -64,6 +64,7 @@ class EditCardModal extends React.Component {
                 return (
                   <span
                     className="label"
+                    key={label}
                     style={{ background: label }}
                     onClick={() => this.setLabel(label)}
                   ></span>
