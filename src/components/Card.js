@@ -10,7 +10,6 @@ class Card extends React.Component {
 
   toggleModal = () => {
       this.setState({modalOpen: !this.state.modalOpen});
-      console.log(this.state);
   }
 
    deleteCard = async (e) => {
@@ -31,7 +30,11 @@ class Card extends React.Component {
                <span onClick={this.deleteCard}>&times;</span>
                </div>
            </div>
-           <EditCardModal modalOpen={this.state.modalOpen} toggleModal={this.toggleModal}/>
+           <EditCardModal
+            modalOpen={this.state.modalOpen} 
+            toggleModal={this.toggleModal}
+            cardData={this.props.data}
+            />
            </React.Fragment>
        )
     }
