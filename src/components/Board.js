@@ -67,15 +67,17 @@ class Board extends React.Component {
 
  addBoardInput = React.createRef()
 
-  createNewList = async e => {
+  createNewList = async (e, userId) => {
   
     try {
     e.preventDefault();
     const list = {
       title: this.addBoardInput.current.value,
       board: this.props.match.params.boardId,
-      createdAt: new Date()
+      createdAt: new Date(),
+      user: userId
     }
+    
      if(list.title && list.board) {
        await listsRef.add({list})
       //this.setState({currentList: [...this.state.currentList, list]});
@@ -159,7 +161,7 @@ class Board extends React.Component {
             />
           ))}
         </div>
-        <form onSubmit={this.createNewList} className="new-list-wrapper">
+        <form onSubmit={(e) => this.createNewList(e, user.id)} className="new-list-wrapper">
         <input type="text"
          name="name"
          type={this.state.message === ''? 'text': 'hidden'}
