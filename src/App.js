@@ -5,7 +5,7 @@ import Home from "./components/pages/Home";
 import PageNotFound from "./components/pages/PageNotFound";
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import {boardsRef} from './firebase';
-import {AuthProvider} from './components/AuthContext';
+import AuthProvider from './components/AuthContext';
 import UserForm from './components/UserForm';
 import Header from './components/Header';
 
@@ -17,7 +17,10 @@ class App extends React.Component {
   getBoard = async userId => {
     try {
         this.setState({boards: []});
-        const boards = await boardsRef.get();
+        const boards = await boardsRef
+        .where('board.user', '==', userId)
+        .orderBy('board.createdAt')
+        .get();
         
         boards.forEach(board => {
         const data = board.data().board;

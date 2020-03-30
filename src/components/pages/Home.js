@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 
 class Home extends React.Component {
   componentDidMount() {
-    this.props.getBoard();
+    this.props.getBoard(this.props.match.params.userId);
   }
   render() {
     return (

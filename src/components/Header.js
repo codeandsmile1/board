@@ -18,6 +18,6 @@ const Header = () => (
             )}
         </AuthConsumer>
     </header>
-)
 
+)
 export default Header;
