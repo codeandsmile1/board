@@ -29,7 +29,7 @@ class List extends React.Component {
         this.setState({ currentCards: [...this.state.currentCards, cardObj] });
       });
     } catch (error) {
-      console.log("Error fetching cards: ", error);
+      console.error("Error fetching cards: ", error);
     }
   };
 
@@ -55,14 +55,25 @@ class List extends React.Component {
     }
   };
 
-  deleteList = () => {
-    const listId = this.props.list.id;
-    this.props.deleteList(listId);
+  deleteList = async() => {
+   const listId = this.props.list.id;
+   try{
+    const cards = await cardsRef.where('card.listId','==', this.props.list.id).get();
+    if(cards.docs.length !== 0) {
+       cards.forEach(card => {
+          card.ref.delete();
+       })
+      }
+      const list = await listsRef.doc(listId);
+      list.delete();
+   } catch(error) {
+     console.error("Error deleting list: ",error);
+   }
   };
 
   updateList = async e => {
     try {
-      debugger;
+      //debugger;
       const listId = this.props.list.id;
       const newTitle = e.currentTarget.value;
       const list = await listsRef.doc(listId);

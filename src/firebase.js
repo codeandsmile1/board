@@ -16,7 +16,7 @@ const config = {
 firebase.initializeApp(config);
 
 const db = firebase.firestore();
-const firebaseAuth =  firebase.auth();
+const firebaseAuth = firebase.auth();
 
 const boardsRef  = db.collection('boards');
 const listsRef  = db.collection('lists');

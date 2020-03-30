@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {AuthConsumer} from '../components/AuthContext';
 
 class CreateBoardForm extends React.Component {
     state = {
@@ -7,24 +8,26 @@ class CreateBoardForm extends React.Component {
         background: "blue"
     } 
    
-    handleSubmit = (e) => {
+    handleSubmit = (e, userId) => {
       e.preventDefault();
+     
       const board =  {
           title: this.state.title,
           background: this.state.background,
           createdAt: new Date(),
-          user: 'user123'
+          user: userId
       }
-
-      if(board.title && board.background) { 
+      console.log(board);
+      if(board.title && board.background && board.user) { 
         this.props.createNewBoard(board);
       }
     }
 
     render() {
        return (
-           <div>
-           <form  onSubmit={this.handleSubmit} className="create-board-wrapper">
+         <AuthConsumer>
+           {({user}) => (
+           <form  onSubmit={(e) => this.handleSubmit(e, user.id)} className="create-board-wrapper">
            <input type="text" 
            name="name" 
            placeholder="Board name"
@@ -33,14 +36,14 @@ class CreateBoardForm extends React.Component {
            <select 
             onChange={e => this.setState({background: e.target.value})}
             name="background">
-          <option value="blue">Blue</option>
           <option value="green">Green</option>
           <option value="red">Red</option>
-          <option value="black">Black</option>
+          <option value="pink">Pink</option>
            </select>
            <button type="submit">Create New Board</button>
            </form>
-           </div>
+          )}    
+           </AuthConsumer>
        )
     }
 }

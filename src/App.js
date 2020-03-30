@@ -7,6 +7,7 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import {boardsRef} from './firebase';
 import {AuthProvider} from './components/AuthContext';
 import UserForm from './components/UserForm';
+import Header from './components/Header';
 
 class App extends React.Component {
   state = {
@@ -52,6 +53,7 @@ class App extends React.Component {
       <div>
          <BrowserRouter>
          <AuthProvider>
+         <Header/>
          <Switch>
            <Route exact path='/' component={UserForm}/>
          <Route exact path="/:userId/boards"
@@ -63,7 +65,9 @@ class App extends React.Component {
             createNewBoard={this.createNewBoard}/>
           )
           }/>
-         <Route path="/board/:boardId" component={Board}
+         <Route
+         path="/board/:boardId" 
+         component={Board}
          render = {(props) => (
            <Board 
            {...props}
