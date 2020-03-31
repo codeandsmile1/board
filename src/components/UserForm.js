@@ -1,7 +1,6 @@
 import React from 'react';
 import {AuthConsumer} from './AuthContext';
 
-
 class UserForm extends React.Component {
     emailInput = React.createRef();
     passwordInput = React.createRef();
@@ -9,6 +8,16 @@ class UserForm extends React.Component {
     redirect = (userId) => { 
         this.props.history.push(`/${userId}/boards`);
     }
+
+   showPassword = () => {
+       const password = document.getElementsByName("password");
+        
+       if(password[0].type === 'password') {
+           password[0].type = "text";
+       } else {
+           password[0].type = "password";
+       }
+   }
 
     render() {
         return (
@@ -25,7 +34,11 @@ class UserForm extends React.Component {
                        <input type="email" placeholder="Email" name="email" ref={this.emailInput}/>
                    </div>
                    <div>
-                       <input type="password" placeholder="Password" name="password" ref={this.passwordInput}/>
+                       <input type="password" placeholder="Password" name="password" ref={this.passwordInput}/>                                 
+                   </div>
+                   <div>
+                   <label>Show Password</label>
+                       <input type="checkbox" onClick={this.showPassword}/>  
                    </div>
                    </form>
                    <div>
