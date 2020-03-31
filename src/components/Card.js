@@ -4,6 +4,7 @@ import { cardsRef } from "../firebase";
 import EditCardModal from "./EditCardModel";
 import TextareaAutosize from "react-autosize-textarea";
 
+
 class Card extends React.Component {
   state = {
     modalOpen: false

@@ -9,7 +9,7 @@ const Header = () => (
                     <div className="user-area">
                     {user.id? (
                     <React.Fragment>    
-                    <small>User: {user.email}</small>
+                    <small>{user.email}</small>
                     <button onClick={(e) => logOut(e)}>Log Out</button>
                     </React.Fragment>
                     ) :(<small>Please sign in</small>)}
