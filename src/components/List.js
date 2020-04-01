@@ -58,8 +58,9 @@ class List extends React.Component {
   };
 
   deleteList = async() => {
-   const listId = this.props.list.id;
+   
    try{
+    const listId = this.props.list.id;
     const cards = await cardsRef.where('card.listId','==', this.props.list.id).get();
     if(cards.docs.length !== 0) {
        cards.forEach(card => {
